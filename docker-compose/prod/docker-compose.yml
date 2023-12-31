@@ -228,7 +228,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 20
-      start_period: 100s
+      start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "accounts"
     extends:
@@ -246,7 +246,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 20
-      start_period: 100s
+      start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "loans"
     extends:
@@ -263,7 +263,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 20
-      start_period: 100s
+      start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "cards"
     extends:
