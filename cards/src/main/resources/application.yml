@@ -36,10 +36,13 @@ management:
     env:
       enabled: true
   health:
-    readinessstate:
+    readiness-state:
       enabled: true
-    livenessstate:
+    liveness-state:
       enabled: true
+  metrics:
+    tags:
+      applications: $(spring.application.name)
 
 #starting position
 endpoints:
