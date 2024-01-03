@@ -90,6 +90,19 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  temp:
+    image: grafana/tempo
+    container_name: tempo
+    command: -config.file /etc/tempo-config.yml
+    ports:
+      - "3110:3100"
+      - "4317:4317"
+    volumes:
+      - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
 
   grafana:
     image: grafana/grafana:latest
@@ -201,6 +214,8 @@ services:
     extends:
       file: common-config.yml
       service: microservice-base-config
+    environment:
+      OTEL_SERVICE_NAME: configserver
 
   eurekaserver:
     image: "jihongmin/eurekaserver:s11"
@@ -218,6 +233,7 @@ services:
       service: microservice-configserver-config
     environment:
       SPRING_APPLICATION_NAME: "eurekaserver"
+      OTEL_SERVICE_NAME: "eurekaserver"
 
 
   accounts:
@@ -233,9 +249,11 @@ services:
       start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "accounts"
+      OTEL_SERVICE_NAME: "accounts"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
+
 
 
   loans:
@@ -251,6 +269,7 @@ services:
       start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "loans"
+      OTEL_SERIVICE_NAME: "loans"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
@@ -268,6 +287,7 @@ services:
       start_period: 20s
     environment:
       SPRING_APPLICATION_NAME: "cards"
+      OTEL_SERVICE_NAME: "cards"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
@@ -290,6 +310,7 @@ services:
       service: microservice-eureka-config
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"
+      OTEL_SERVICE_NAME: "gatewayserver"
 
 
 networks:
